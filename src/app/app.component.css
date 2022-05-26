@@ -1,0 +1,11 @@
+/* These are the global styles */
+
+.blazze-container {
+    padding: 20px 40px;
+}
+
+@media only screen and (max-width: 600px) {
+    .blazze-container {
+         padding: 10px 10px;
+    }
+}
