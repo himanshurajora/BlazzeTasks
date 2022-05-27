@@ -25,11 +25,32 @@
                     </form>
                </mat-card-header>
                <mat-selection-list>
+                    <!-- show the list of pending tasks only -->
                     <mat-list-option
-                         *ngFor="let task of tasks"
-                         matTooltip="{{ task.description }}"
+                         *ngFor="let task of getToDoTasks()"
                     >
-                         {{ task.title }}
+                         <mat-icon matListAvatar>list</mat-icon>
+                         <h4 matLine>{{ task.title }}</h4>
+                         <p matLine>{{ task.description }}</p>
+                    </mat-list-option>
+               </mat-selection-list>
+          </mat-card-content>
+     </mat-card>
+
+     <br>
+     <!-- Completed Tasks -->
+     <mat-card>
+          <mat-card-content>
+               <mat-card-title> Completed </mat-card-title>
+               <mat-selection-list>
+                    <!-- show the list of completed tasks only -->
+                    <mat-list-option
+                         *ngFor="let task of getCompletedTasks()"
+                         [selected]="task.status === 'completed'"
+                    >
+                         <mat-icon matListAvatar>list</mat-icon>
+                         <h4 matLine>{{ task.title }}</h4>
+                         <p matLine>{{ task.description }}</p>
                     </mat-list-option>
                </mat-selection-list>
           </mat-card-content>
