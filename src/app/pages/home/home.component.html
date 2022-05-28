@@ -4,7 +4,7 @@
           <mat-card-content>
                <mat-card-title> To Do </mat-card-title>
                <mat-card-header>
-                    <form>
+                    <!-- <form>
                          <mat-form-field appearance="fill">
                               <input
                                    matInput
@@ -22,12 +22,13 @@
                                    <mat-icon>add</mat-icon>
                               </button>
                          </mat-form-field>
-                    </form>
+                    </form> -->
                </mat-card-header>
                <mat-selection-list>
                     <!-- show the list of pending tasks only -->
                     <mat-list-option
                          *ngFor="let task of getToDoTasks()"
+                         (selectedChange)="markTaskAsCompleted(task)"
                     >
                          <mat-icon matListAvatar>list</mat-icon>
                          <h4 matLine>{{ task.title }}</h4>
@@ -37,7 +38,7 @@
           </mat-card-content>
      </mat-card>
 
-     <br>
+     <br />
      <!-- Completed Tasks -->
      <mat-card>
           <mat-card-content>
@@ -46,11 +47,17 @@
                     <!-- show the list of completed tasks only -->
                     <mat-list-option
                          *ngFor="let task of getCompletedTasks()"
-                         [selected]="task.status === 'completed'"
+                         (selectedChange)="markTaskAsToDo(task)"
+                         selected="true"
                     >
+                         <!-- (selectedChange)="onCompletedChange(task)" -->
                          <mat-icon matListAvatar>list</mat-icon>
-                         <h4 matLine>{{ task.title }}</h4>
-                         <p matLine>{{ task.description }}</p>
+                         <h4 matLine class="completed">
+                              {{ task.title }}
+                         </h4>
+                         <p matLine class="completed">
+                              {{ task.description }}
+                         </p>
                     </mat-list-option>
                </mat-selection-list>
           </mat-card-content>

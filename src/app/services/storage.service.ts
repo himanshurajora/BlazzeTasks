@@ -6,42 +6,41 @@ import TasksMock from '../core/mocks/tasks.mock';
      providedIn: 'root',
 })
 export class StorageService {
-     tasks: BlazzeTask[] = TasksMock;
+     tasks: BlazzeTask[] = [];
 
      addTask(task: BlazzeTask) {
           this.tasks.push(task);
           this.storeTasks();
      }
 
-     removeTaskById(id: number) {
-          this.tasks = this.tasks.filter((task) => task.id !== id);
-          this.storeTasks();
-     }
-
-     getAllTasks(): BlazzeTask[] {
-          return this.tasks;
-     }
-
-     markCompleted(id: number) {
-          this.tasks = this.tasks.map((task) => {
-               if (task.id === id) {
-                    task.status = 'completed';
+     markTaskAsCompleted(task: BlazzeTask) {
+          // update task by id
+          this.tasks = this.tasks.map((t) => {
+               if (t.id === task.id) {
+                    t.status = 'completed';
                }
-               return task;
+               return t;
           });
           this.storeTasks();
      }
 
-     markToDo(id: number) {
-          this.tasks = this.tasks.map((task) => {
-               if (task.id === id) {
-                    task.status = 'todo';
+     markTaskAsToDo(task: BlazzeTask) {
+          // update task by id
+          this.tasks = this.tasks.map((t) => {
+               if (t.id === task.id) {
+                    t.status = 'todo';
                }
-               return task;
+               return t;
           });
+          this.storeTasks();
      }
 
      storeTasks() {
           localStorage.setItem('tasks', JSON.stringify(this.tasks));
+     }
+
+     getTasksFromStorage() {
+          this.tasks = JSON.parse(localStorage.getItem('tasks')!);
+          return this.tasks;
      }
 }
