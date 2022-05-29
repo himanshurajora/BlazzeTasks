@@ -3,26 +3,48 @@
      <mat-card>
           <mat-card-content>
                <mat-card-title> To Do </mat-card-title>
+               <mat-card-subtitle>
+                    <span>{{ tasks.length }}</span>
+                    <span>{{
+                         tasks.length > 1 ? ' Tasks' : ' Task'
+                    }}</span>
+                    <button
+                         mat-flat-button
+                         (click)="deleteAllTasks()"
+                    >
+                         Delete All
+                    </button>
+               </mat-card-subtitle>
                <mat-card-header>
-                    <!-- <form>
+                    <form
+                         [formGroup]="taskForm"
+                         (ngSubmit)="addTask()"
+                    >
                          <mat-form-field appearance="fill">
+                              <mat-label>Title</mat-label>
                               <input
                                    matInput
-                                   placeholder="Add A New Task"
                                    required
+                                   formControlName="title"
                               />
                          </mat-form-field>
-
                          <mat-form-field appearance="fill">
-                              <button
-                                   mat-raised-button
-                                   color="primary"
-                                   type="submit"
-                              >
-                                   <mat-icon>add</mat-icon>
-                              </button>
+                              <mat-label>Description</mat-label>
+                              <input
+                                   matInput
+                                   required
+                                   formControlName="description"
+                              />
                          </mat-form-field>
-                    </form> -->
+                         <!-- submit button -->
+                         <button
+                              mat-raised-button
+                              color="primary"
+                              type="submit"
+                         >
+                              Add
+                         </button>
+                    </form>
                </mat-card-header>
                <mat-selection-list>
                     <!-- show the list of pending tasks only -->

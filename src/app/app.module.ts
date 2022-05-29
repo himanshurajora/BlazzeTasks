@@ -13,26 +13,25 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    HomeComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    LayoutModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+     declarations: [AppComponent, NavbarComponent, HomeComponent],
+     imports: [
+          BrowserModule,
+          AppRoutingModule,
+          BrowserAnimationsModule,
+          MaterialModule,
+          MatGridListModule,
+          MatCardModule,
+          MatMenuModule,
+          MatIconModule,
+          MatButtonModule,
+          LayoutModule,
+          FormsModule,
+          ReactiveFormsModule,
+     ],
+     providers: [],
+     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,6 +3,7 @@ import { MatSelectionListChange } from '@angular/material/list';
 import TasksMock from 'src/app/core/mocks/tasks.mock';
 import { StorageService } from 'src/app/services/storage.service';
 import { BlazzeTask } from 'src/types';
+import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
      selector: 'app-home',
      templateUrl: './home.component.html',
@@ -10,7 +11,12 @@ import { BlazzeTask } from 'src/types';
 })
 export class HomeComponent implements OnInit {
      tasks: BlazzeTask[] = [];
-     constructor(private storageService: StorageService) {}
+     taskForm!: FormGroup;
+
+     constructor(
+          private storageService: StorageService,
+          private fb: FormBuilder
+     ) {}
 
      getCompletedTasks(): BlazzeTask[] {
           return this.tasks.filter(
@@ -30,7 +36,31 @@ export class HomeComponent implements OnInit {
           return this.tasks.filter((task) => task.status === 'todo');
      }
 
+     addTask() {
+          if (
+               this.taskForm.value?.title.trim() !== '' &&
+               this.taskForm.value?.description.trim() !== ''
+          ) {
+               this.storageService.addTask({
+                    id: this.tasks.length + 1,
+                    title: this.taskForm.value.title,
+                    description: this.taskForm.value.description,
+                    status: 'todo',
+               });
+               this.taskForm.reset();
+          }
+     }
+
+     deleteAllTasks() {
+          this.storageService.deleteAllTasks();
+          this.tasks = this.storageService.getTasksFromStorage();
+     }
+
      ngOnInit(): void {
           this.tasks = this.storageService.getTasksFromStorage();
+          this.taskForm = this.fb.group({
+               title: '',
+               description: '',
+          });
      }
 }

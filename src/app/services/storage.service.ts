@@ -35,6 +35,11 @@ export class StorageService {
           this.storeTasks();
      }
 
+     deleteAllTasks() {
+          this.tasks = [];
+          this.storeTasks();
+     }
+
      storeTasks() {
           localStorage.setItem('tasks', JSON.stringify(this.tasks));
      }
